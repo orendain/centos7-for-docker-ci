@@ -1,0 +1,10 @@
+# Cache
+**/packer_cache
+**/output-virtualbox-iso
+
+# Files
+*.git
+
+# Large ISOs
+*.iso
+

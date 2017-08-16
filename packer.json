@@ -1,0 +1,39 @@
+{
+  "builders": [{
+    "type": "virtualbox-iso",
+    "guest_os_type": "RedHat_64",
+    "vm_name": "sandbox-builder-ci",
+    "iso_urls": [
+      "assets-local/CentOS-7-x86_64-Minimal-1611.iso",
+      "http://mirrors.xmission.com/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1611.iso"
+    ],
+    "iso_checksum": "27bd866242ee058b7a5754e83d8ee8403e216b93d130d800852a96f41c34d86a",
+    "iso_checksum_type": "sha256",
+    "ssh_username": "root",
+    "ssh_password": "hortonworks",
+    "ssh_timeout": "60m",
+    "shutdown_command": "shutdown -P now",
+    "http_directory": "assets-local/http-centos",
+    "headless": "false",
+    "boot_command": [
+      "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter><wait>"
+    ]
+  }],
+
+  "provisioners":
+    [
+      {
+        "type": "shell",
+        "inline": [
+          "mkdir -p /tmp/sandbox/build",
+          "mkdir -p /sandbox"
+        ]
+      },
+      {
+        "type": "shell",
+        "inline": [
+          "rm -rf /tmp/sandbox/build"
+        ]
+      }
+    ]
+}
